@@ -1,11 +1,12 @@
 name: Build vendor directory
 
 on:
-  push:
-    branches: [ "*" ]
+  create:
+    tags:
+      - "v*"
 
 jobs:
-  vendor:
+  build-vendor:
     runs-on: ubuntu-latest
 
     steps:
