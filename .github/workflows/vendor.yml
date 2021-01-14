@@ -1,10 +1,8 @@
 name: Build vendor directory
 
 on:
-  pull_request:
   push:
-    branches:
-      - "*"
+    branches: [ "*" ]
 
 jobs:
   vendor:
