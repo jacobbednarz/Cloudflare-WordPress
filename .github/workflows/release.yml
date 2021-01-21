@@ -3,7 +3,7 @@ on:
   release:
     types: [published]
 jobs:
-  tag:
+  release:
     name: New release
     runs-on: ubuntu-latest
     steps:
@@ -14,6 +14,9 @@ jobs:
       with:
         command: install
         version: 1
+    - name: show me the dir
+      run: |
+        ls -la
     - name: WordPress Plugin Deploy
       id: deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
