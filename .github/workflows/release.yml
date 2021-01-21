@@ -1,7 +1,7 @@
 name: Release plugin
 on:
-  push:
-    branches: ['*']
+  release:
+    types: [published]
 jobs:
   tag:
     name: New release
