@@ -27,8 +27,9 @@ jobs:
       with:
         generate-zip: true
       env:
-        SVN_USERNAME: fake
-        SVN_PASSWORD: fake
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SLUG: cloudflare
     - name: Upload release asset
       uses: actions/upload-release-asset@v1
       env:
