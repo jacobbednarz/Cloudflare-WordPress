@@ -19,7 +19,7 @@ jobs:
         ls -la
     - name: zip it up
       run: |
-        zip -r cloudflare.zip .
+        zip -r cloudflare-${{ github.event.release.tag_name }}.zip .
     - name: WordPress Plugin Deploy
       id: deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
@@ -36,6 +36,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{github.workspace}}/cloudflare.zip
-        asset_name: cloudflare.zip
+        asset_path: ${{github.workspace}}/cloudflare-${{ github.event.release.tag_name }}.zip
+        asset_name: cloudflare-${{ github.event.release.tag_name }}.zip
         asset_content_type: application/zip
