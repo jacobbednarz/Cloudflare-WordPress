@@ -9,6 +9,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+    - name: Clean up release tag
+      run: |
+        SEMVER_STRING="${initial_tag_version/v/}"
+        echo "setting semver string to $SEMVER_STRING"
+        echo "SEMVER_STRING=$SEMVER_STRING >> $GITHUB_ENV"
+      env:
+        initial_tag_version: ${{ github.event.release.tag_name }}
     - name: Build
       uses: php-actions/composer@v5
       with:
@@ -17,6 +24,7 @@ jobs:
     - name: WordPress Plugin Deploy
       id: deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
+      continue-on-error: true
       with:
         generate-zip: true
       env:
@@ -29,6 +37,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{github.workspace}}/cloudflare-${{ github.event.release.tag_name }}.zip
-        asset_name: cloudflare-${{ github.event.release.tag_name }}.zip
+        asset_path: ${{github.workspace}}/cloudflare-$SEMVER_STRING.zip
+        asset_name: cloudflare-$SEMVER_STRING.zip
         asset_content_type: application/zip
