@@ -14,16 +14,9 @@ jobs:
       with:
         command: install
         version: 1
-    - name: show me the dir
-      run: |
-        ls -la
-    - name: zip it up
-      run: |
-        zip -r cloudflare-${{ github.event.release.tag_name }}.zip .
     - name: WordPress Plugin Deploy
       id: deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
-      continue-on-error: true
       with:
         generate-zip: true
       env:
